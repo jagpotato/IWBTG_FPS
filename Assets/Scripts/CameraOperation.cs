@@ -6,11 +6,9 @@ public class CameraOperation : MonoBehaviour {
 	[SerializeField]
 	private float speed;
 	private float angle = 1f;
-	// Use this for initialization
 	void Start () {
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		// 移動 W:前 S:後 A:左 D:右 Space:上 LeftShift:下
 		if (Input.GetKey(KeyCode.W)) {
