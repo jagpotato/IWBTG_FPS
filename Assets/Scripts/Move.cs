@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Move : MonoBehaviour {
   private float velocity = 5f;
-  private float velocityJump = 5f;
+  private float velocityJump = 8f;
   private Vector3 angularVelocity = new Vector3(0f, 4f, 0f);
   private Vector3 direction = Vector3.zero;
   private Rigidbody rigidBody;
@@ -16,7 +16,7 @@ public class Move : MonoBehaviour {
   private bool isJumping = false;
   private RaycastHit hit;
   private float rayDistance, rayScale;
-  private Vector3 localGravity = new Vector3(0f, -30f, 0f);
+  private Vector3 localGravity = new Vector3(0f, -20f, 0f);
   private bool isRotate = false;
   void Start () {
     rigidBody = GetComponent<Rigidbody>();
@@ -26,6 +26,7 @@ public class Move : MonoBehaviour {
   }
   
   void Update () {
+    // WASDで移動
     if (Input.GetKey(KeyCode.W)) {
       direction += transform.forward;
     }
@@ -41,20 +42,7 @@ public class Move : MonoBehaviour {
     if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
       direction = Vector3.zero;
     }
-    // if (Input.GetKey(KeyCode.Space)) {
-    //   if (jumpTime < 10) {
-    //     jumpTime++;
-    //     isJumping = true;
-    //   } else {
-    //     isJumping = false;
-    //   }
-    // }
-    // if (Input.GetKeyUp(KeyCode.Space)) {
-    //   jumpCount++;
-    //   jumpTime = 0;
-    //   isJumping = false;
-    // }
-    
+    // スペースキーでジャンプ
     if (Input.GetKey(KeyCode.Space) && jumpCount < jumpCountMax) {
       if (jumpTime < jumpTimeMax) {
         jumpTime++;
@@ -68,12 +56,6 @@ public class Move : MonoBehaviour {
       jumpTime = 0;
     }
     
-    // if (Input.GetKeyDown(KeyCode.Space)) {
-    //   jumpCount++;
-    //   if (jumpCount < jumpCountMax) isJumping = true;
-    // }
-
-
     // if (Input.GetKey(KeyCode.LeftShift)) {
     // }
     // 回転 矢印キー左右
@@ -90,13 +72,6 @@ public class Move : MonoBehaviour {
     // }
 
 		isGround = Physics.BoxCast(transform.position, Vector3.one * rayScale, -transform.up, out hit, transform.rotation, rayDistance);
-    // if (Physics.BoxCast(transform.position, Vector3.one * rayScale, -transform.up, out hit, transform.rotation, rayDistance)) {
-    //   isGround = true;
-    //   // Debug.Log("ground");
-    // } else {
-    //   isGround = false;
-    //   // Debug.Log("not ground");
-    // }
   }
   // void OnDrawGizmos () {
   //   Gizmos.DrawWireCube (transform.position - transform.up * hit.distance, Vector3.one * rayScale * 2);
@@ -120,13 +95,5 @@ public class Move : MonoBehaviour {
     // }
     // Debug.Log(rigidBody.angularVelocity);
 
-
-    // if (isGround) {
-    //   jumpCount = 0;
-    // }
-    // if (isJumping && jumpCount < 2) {
-    //   rigidBody.velocity = new Vector3(rigidBody.velocity.x, 10f, rigidBody.velocity.z);
-    //   // Debug.Log(jumpCount);
-    // }
   }
 }
